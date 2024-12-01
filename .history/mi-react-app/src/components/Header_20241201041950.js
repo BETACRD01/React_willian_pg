@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { FaArrowDown, FaArrowUp, FaSearch } from 'react-icons/fa'; // Agregar iconos de flecha
 import logo from './img/logo/logo2.jpeg';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolling, setScrolling] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
-  const [searchQuery, setSearchQuery] = useState(''); // Definimos el estado de la búsqueda
+  const [searchQuery, setSearchQuery] = useState('');
   const menuRef = useRef(null);
   const buttonRef = useRef(null);
   const headerRef = useRef(null);
@@ -97,6 +98,22 @@ const Header = () => {
     menuItemHover: {
       backgroundColor: '#004085',
     },
+    arrowButton: {
+      position: 'fixed',
+      bottom: '20px',
+      right: '20px',
+      backgroundColor: '#003366',
+      color: '#fff',
+      border: 'none',
+      fontSize: '2rem',
+      padding: '10px',
+      borderRadius: '50%',
+      cursor: 'pointer',
+      zIndex: 5, // Colocar detrás de los botones principales
+      opacity: 0.7, // Hacer la flecha un poco más transparente
+      display: isMenuOpen ? 'none' : 'block',
+      transition: 'opacity 0.3s ease-in-out', // Transición suave de opacidad
+    },
     searchContainer: {
       display: 'flex',
       alignItems: 'center',
@@ -166,7 +183,7 @@ const Header = () => {
   }, []);
 
   const handleSearchChange = (event) => {
-    setSearchQuery(event.target.value); // Actualizar el estado de la búsqueda
+    setSearchQuery(event.target.value);
   };
 
   const handleSearchSubmit = () => {
@@ -204,16 +221,22 @@ const Header = () => {
           <input
             type="text"
             placeholder="Buscar..."
-            value={searchQuery} // Vincular con el estado
-            onChange={handleSearchChange} // Manejar cambio de búsqueda
+            value={searchQuery}
+            onChange={handleSearchChange}
             style={styles.searchInput}
           />
           <button onClick={handleSearchSubmit} style={styles.searchButton}>
-            🔍
+            <FaSearch />
           </button>
         </div>
         <button style={styles.loginButton}>Iniciar sesión</button>
       </div>
+      <button 
+        style={styles.arrowButton} 
+        onClick={toggleMenu}
+      >
+        {isMenuOpen ? <FaArrowUp /> : <FaArrowDown />}
+      </button>
     </header>
   );
 };

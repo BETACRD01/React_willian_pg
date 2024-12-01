@@ -1,20 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { FaSearch } from 'react-icons/fa'; // Librería de iconos
 import logo from './img/logo/logo2.jpeg';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [scrolling, setScrolling] = useState(false);
-  const [lastScrollY, setLastScrollY] = useState(0);
-  const [searchQuery, setSearchQuery] = useState(''); // Definimos el estado de la búsqueda
-  const menuRef = useRef(null);
-  const buttonRef = useRef(null);
-  const headerRef = useRef(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const menuRef = useRef(null); // Referencia al contenedor del menú
+  const buttonRef = useRef(null); // Referencia al botón
 
   const styles = {
     header: {
-      background: 'linear-gradient(to right, #0056b3, #003366)', 
+      background: 'linear-gradient(to right, #0056b3, #003366)', // Fondo degradado que coincide con el logo
       color: '#fff',
-      padding: '10px 20px',
+      padding: '15px 20px',
       textAlign: 'center',
       boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
       borderBottom: '5px solid #004085',
@@ -22,36 +20,39 @@ const Header = () => {
       justifyContent: 'space-between',
       alignItems: 'center',
       fontFamily: "'Poppins', sans-serif",
-      position: 'fixed',
+      position: 'fixed', // Fijar el header en la parte superior
       top: 0,
       left: 0,
       right: 0,
       zIndex: 10,
       marginTop: 0,
-      height: '80px',
-      transition: 'all 0.3s ease-in-out',
-      transform: scrolling ? 'translateY(0)' : 'translateY(-100px)',
+      height: '120px', // Ajustar el tamaño
     },
     logoContainer: {
       display: 'flex',
       alignItems: 'center',
+      transition: 'transform 0.3s',
     },
     logo: {
-      width: '70px',
+      width: '90px', // Ajustamos el tamaño del logo
       height: 'auto',
       marginRight: '15px',
       borderRadius: '15px',
       opacity: 0.9,
+      transition: 'transform 0.3s ease-in-out', // Transición suave en el logo
+    },
+    logoHover: {
+      transform: 'scale(1.1)', // Efecto de hover
     },
     title: {
-      fontSize: '2rem',
+      fontSize: '2.5rem',
       fontWeight: '700',
       marginBottom: '5px',
       fontFamily: "'Poppins', sans-serif",
       letterSpacing: '1px',
     },
     subtitle: {
-      fontSize: '1rem',
+      fontSize: '1.2rem',
       margin: 0,
       fontFamily: "'Roboto', sans-serif",
       opacity: 0.85,
@@ -65,14 +66,13 @@ const Header = () => {
       cursor: 'pointer',
       padding: '10px',
       transition: 'color 0.3s',
-      marginLeft: '20px',
     },
     menuButtonHover: {
       color: '#FFD700',
     },
     menu: {
       position: 'absolute',
-      top: '90px',
+      top: '80px',
       right: '20px',
       background: '#003366',
       borderRadius: '8px',
@@ -125,26 +125,6 @@ const Header = () => {
     },
   };
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-
-      if (currentScrollY > lastScrollY) {
-        setScrolling(false); // Ocultar al hacer scroll hacia abajo
-      } else {
-        setScrolling(true); // Mostrar al hacer scroll hacia arriba
-      }
-
-      setLastScrollY(currentScrollY);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [lastScrollY]);
-
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -166,7 +146,7 @@ const Header = () => {
   }, []);
 
   const handleSearchChange = (event) => {
-    setSearchQuery(event.target.value); // Actualizar el estado de la búsqueda
+    setSearchQuery(event.target.value); // Controlar el valor de búsqueda
   };
 
   const handleSearchSubmit = () => {
@@ -174,12 +154,12 @@ const Header = () => {
   };
 
   return (
-    <header ref={headerRef} style={styles.header}>
+    <header style={styles.header}>
       <div style={styles.logoContainer}>
         <img
           src={logo}
           alt="Logo"
-          style={styles.logo}
+          style={{ ...styles.logo, ...(isMenuOpen ? styles.logoHover : {}) }}
         />
         <div>
           <h1 style={styles.title}>Estudia EDU</h1>
@@ -204,12 +184,12 @@ const Header = () => {
           <input
             type="text"
             placeholder="Buscar..."
-            value={searchQuery} // Vincular con el estado
-            onChange={handleSearchChange} // Manejar cambio de búsqueda
+            value={searchQuery}
+            onChange={handleSearchChange}
             style={styles.searchInput}
           />
           <button onClick={handleSearchSubmit} style={styles.searchButton}>
-            🔍
+            <FaSearch />
           </button>
         </div>
         <button style={styles.loginButton}>Iniciar sesión</button>

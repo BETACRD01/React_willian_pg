@@ -1,20 +1,17 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { FaSearch } from 'react-icons/fa'; // Librería de iconos
 import logo from './img/logo/logo2.jpeg';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [scrolling, setScrolling] = useState(false);
-  const [lastScrollY, setLastScrollY] = useState(0);
-  const [searchQuery, setSearchQuery] = useState(''); // Definimos el estado de la búsqueda
-  const menuRef = useRef(null);
-  const buttonRef = useRef(null);
-  const headerRef = useRef(null);
+  const menuRef = useRef(null); // Referencia al contenedor del menú
+  const buttonRef = useRef(null); // Referencia al botón
 
   const styles = {
     header: {
-      background: 'linear-gradient(to right, #0056b3, #003366)', 
+      background: 'linear-gradient(to right, #0056b3, #003366)', // Fondo degradado que coincide con el logo
       color: '#fff',
-      padding: '10px 20px',
+      padding: '15px 20px', // Ajustamos el padding
       textAlign: 'center',
       boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
       borderBottom: '5px solid #004085',
@@ -22,36 +19,35 @@ const Header = () => {
       justifyContent: 'space-between',
       alignItems: 'center',
       fontFamily: "'Poppins', sans-serif",
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      right: 0,
-      zIndex: 10,
+      position: 'relative',
+      zIndex: 2,
       marginTop: 0,
-      height: '80px',
-      transition: 'all 0.3s ease-in-out',
-      transform: scrolling ? 'translateY(0)' : 'translateY(-100px)',
+      height: '120px', // Reducido para que no sea tan grande
     },
     logoContainer: {
       display: 'flex',
       alignItems: 'center',
+      transition: 'transform 0.3s', // Agregar transición al logo
     },
     logo: {
-      width: '70px',
+      width: '80px',
       height: 'auto',
       marginRight: '15px',
       borderRadius: '15px',
-      opacity: 0.9,
+      opacity: 0.8,
+    },
+    logoHover: {
+      transform: 'scale(1.1)', // Efecto de hover en el logo
     },
     title: {
-      fontSize: '2rem',
+      fontSize: '2.5rem',
       fontWeight: '700',
       marginBottom: '5px',
       fontFamily: "'Poppins', sans-serif",
       letterSpacing: '1px',
     },
     subtitle: {
-      fontSize: '1rem',
+      fontSize: '1.2rem',
       margin: 0,
       fontFamily: "'Roboto', sans-serif",
       opacity: 0.85,
@@ -65,14 +61,13 @@ const Header = () => {
       cursor: 'pointer',
       padding: '10px',
       transition: 'color 0.3s',
-      marginLeft: '20px',
     },
     menuButtonHover: {
       color: '#FFD700',
     },
     menu: {
       position: 'absolute',
-      top: '90px',
+      top: '80px',
       right: '20px',
       background: '#003366',
       borderRadius: '8px',
@@ -97,53 +92,15 @@ const Header = () => {
     menuItemHover: {
       backgroundColor: '#004085',
     },
-    searchContainer: {
-      display: 'flex',
-      alignItems: 'center',
-      marginLeft: '20px',
-      backgroundColor: '#fff',
-      borderRadius: '5px',
-      padding: '5px 10px',
-    },
-    searchInput: {
+    searchButton: {
+      background: 'transparent',
       border: 'none',
-      padding: '5px 10px',
-      borderRadius: '5px',
-      fontSize: '1rem',
-      outline: 'none',
-      width: '180px',
-    },
-    loginButton: {
-      backgroundColor: '#FFD700',
-      color: '#003366',
-      border: 'none',
-      fontSize: '1.1rem',
-      padding: '10px 20px',
-      borderRadius: '5px',
+      color: '#fff',
+      fontSize: '1.5rem',
       cursor: 'pointer',
-      marginLeft: '20px',
+      marginLeft: '10px',
     },
   };
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-
-      if (currentScrollY > lastScrollY) {
-        setScrolling(false); // Ocultar al hacer scroll hacia abajo
-      } else {
-        setScrolling(true); // Mostrar al hacer scroll hacia arriba
-      }
-
-      setLastScrollY(currentScrollY);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [lastScrollY]);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -165,28 +122,20 @@ const Header = () => {
     };
   }, []);
 
-  const handleSearchChange = (event) => {
-    setSearchQuery(event.target.value); // Actualizar el estado de la búsqueda
-  };
-
-  const handleSearchSubmit = () => {
-    alert(`Buscando: ${searchQuery}`);
-  };
-
   return (
-    <header ref={headerRef} style={styles.header}>
-      <div style={styles.logoContainer}>
+    <header style={styles.header}>
+      <div style={styles.logoContainer} className="logo-container">
         <img
           src={logo}
           alt="Logo"
-          style={styles.logo}
+          style={{ ...styles.logo, ...(isMenuOpen ? styles.logoHover : {}) }} // Aplicar efecto de hover al logo
         />
         <div>
           <h1 style={styles.title}>Estudia EDU</h1>
           <p style={styles.subtitle}>Tu fuente de aprendizaje y conocimiento</p>
         </div>
       </div>
-      <div style={{ display: 'flex', alignItems: 'center' }}>
+      <div>
         <button
           ref={buttonRef}
           onClick={toggleMenu}
@@ -200,19 +149,11 @@ const Header = () => {
           <div style={styles.menuItem}>Recursos</div>
           <div style={styles.menuItem}>Blog</div>
         </div>
-        <div style={styles.searchContainer}>
-          <input
-            type="text"
-            placeholder="Buscar..."
-            value={searchQuery} // Vincular con el estado
-            onChange={handleSearchChange} // Manejar cambio de búsqueda
-            style={styles.searchInput}
-          />
-          <button onClick={handleSearchSubmit} style={styles.searchButton}>
-            🔍
-          </button>
-        </div>
-        <button style={styles.loginButton}>Iniciar sesión</button>
+        <button
+          style={styles.searchButton}
+        >
+          <FaSearch />
+        </button>
       </div>
     </header>
   );

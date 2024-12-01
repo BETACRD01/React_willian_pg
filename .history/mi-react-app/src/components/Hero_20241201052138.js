@@ -13,13 +13,6 @@ const Hero = () => (
       position: 'relative',
       marginBottom: '50px',
       overflow: 'hidden',
-      transition: 'background-position 0.5s ease', // Transición para el parallax
-    }}
-    onMouseMove={(e) => {
-      const { offsetX, offsetY } = e.nativeEvent;
-      const x = offsetX / window.innerWidth;
-      const y = offsetY / window.innerHeight;
-      e.currentTarget.style.backgroundPosition = `${x * 100}% ${y * 100}%`;
     }}
   >
     {/* Overlay oscuro con desenfoque */}
@@ -45,15 +38,8 @@ const Hero = () => (
         padding: '0 20px',
       }}
     >
-      <h2 style={{
-        fontSize: '3em',
-        fontWeight: 'bold',
-        animation: 'zoomIn 1s ease-out',
-        marginBottom: '20px',
-      }}>
-        ¡Aprende y Crece con Nosotros!
-      </h2>
-      <p style={{ fontSize: '1.5em', marginTop: '20px', animation: 'fadeIn 1.5s ease-in-out' }}>
+      <h2 style={{ fontSize: '3em', fontWeight: 'bold' }}>¡Aprende y Crece con Nosotros!</h2>
+      <p style={{ fontSize: '1.5em', marginTop: '20px' }}>
         Recursos educativos y consejos prácticos al alcance de todos.
       </p>
       <a
@@ -67,7 +53,7 @@ const Hero = () => (
           marginTop: '30px',
           display: 'inline-block',
           boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.2)',
-          transition: 'background 0.3s, transform 0.3s, box-shadow 0.3s', // Efecto de transición suave
+          transition: 'background 0.3s, transform 0.3s, box-shadow 0.3s',
         }}
         onMouseEnter={(e) => {
           e.currentTarget.style.background = '#357ABD'; // Color más oscuro al pasar el cursor
@@ -85,7 +71,7 @@ const Hero = () => (
       </a>
     </div>
 
-    {/* Animaciones de entrada */}
+    {/* Animación de desvanecimiento */}
     <style>
       {`
         @keyframes fadeIn {
@@ -96,17 +82,6 @@ const Hero = () => (
           to {
             opacity: 1;
             transform: translateY(0);
-          }
-        }
-
-        @keyframes zoomIn {
-          from {
-            opacity: 0;
-            transform: scale(0.8);
-          }
-          to {
-            opacity: 1;
-            transform: scale(1);
           }
         }
       `}

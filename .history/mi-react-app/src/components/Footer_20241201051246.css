@@ -1,0 +1,135 @@
+/* Estilos generales del pie de página */
+.footer {
+  background-color: #34495e;
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px;
+}
+
+.footer-text {
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}
+
+.footer-nav {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.footer-link {
+  color: #ecf0f1;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.footer-link:hover {
+  color: #3498db;
+}
+
+.footer-subscribe {
+  margin: 15px 0;
+}
+
+.footer-input {
+  padding: 8px;
+  width: 220px;
+  border-radius: 5px;
+  border: 1px solid #bdc3c7;
+  margin-right: 10px;
+}
+
+.footer-button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.footer-success {
+  margin-top: 10px;
+  color: #2ecc71;
+  font-size: 0.9rem;
+}
+
+.footer-contact {
+  margin: 20px 0;
+}
+
+.footer-textarea {
+  width: 220px;
+  height: 100px;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #bdc3c7;
+  margin-bottom: 10px;
+}
+
+.footer-socials {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.footer-social-link {
+  font-size: 1.5rem;
+  color: #ecf0f1;
+}
+
+.footer-social-link:hover {
+  color: #3498db;
+}
+
+.footer-map {
+  margin: 20px 0;
+}
+
+.footer-map-link {
+  color: #3498db;
+  font-size: 1rem;
+  text-decoration: none;
+}
+
+.footer-map-link:hover {
+  color: #2980b9;
+}
+
+.footer-language {
+  margin-top: 20px;
+}
+
+.footer-language-select {
+  padding: 5px;
+  font-size: 1rem;
+  border-radius: 5px;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+  .footer-nav {
+    flex-direction: column;
+  }
+
+  .footer-input, .footer-button, .footer-textarea {
+    width: 180px;
+  }
+  
+  .footer-socials {
+    gap: 10px;
+  }
+  
+  .footer-social-link {
+    font-size: 1.2rem;
+  }
+}
+

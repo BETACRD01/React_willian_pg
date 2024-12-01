@@ -1,0 +1,132 @@
+/* Estilos generales del pie de página */
+.footer {
+  background-color: #34495e;
+  color: #fff;
+  padding: 15px 0;
+  text-align: center;
+  font-family: 'Arial', sans-serif;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px;
+}
+
+.footer-text {
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}
+
+.footer-nav {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.footer-link {
+  color: #ecf0f1;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+  color: #3498db;
+}
+
+.footer-subscribe {
+  margin: 20px 0;
+}
+
+.footer-input {
+  padding: 8px;
+  width: 220px;
+  border-radius: 5px;
+  border: 1px solid #bdc3c7;
+  margin-right: 10px;
+}
+
+.footer-button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.footer-button:hover {
+  background-color: #2980b9;
+}
+
+.footer-success {
+  margin-top: 10px;
+  color: #2ecc71;
+  font-size: 0.9rem;
+}
+
+.footer-socials {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.footer-social-link {
+  font-size: 1.5rem;
+  color: #ecf0f1;
+  transition: color 0.3s ease;
+}
+
+.footer-social-link:hover {
+  color: #3498db;
+}
+
+.footer-back-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #3498db;
+  color: white;
+  border-radius: 50%;
+  padding: 10px;
+  font-size: 1.5rem;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+.footer-back-to-top:hover {
+  background-color: #2980b9;
+}
+
+/* Estilos de responsividad */
+@media (max-width: 768px) {
+  .footer-nav {
+    flex-direction: column;
+  }
+
+  .footer-link {
+    font-size: 0.8rem;
+  }
+
+  .footer-input {
+    width: 180px;
+  }
+
+  .footer-button {
+    padding: 6px 12px;
+  }
+
+  .footer-socials {
+    gap: 10px;
+  }
+
+  .footer-social-link {
+    font-size: 1.2rem;
+  }
+}

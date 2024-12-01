@@ -6,11 +6,6 @@ import programacion from './img/gallery/programacion.jpg';
 
 const Gallery = () => {
   const [activeCategory, setActiveCategory] = useState('todos');
-  const [currentPage, setCurrentPage] = useState(1);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [sortOrder, setSortOrder] = useState('asc');
-  const imagesPerPage = 4;
-
   const images = [
     { src: editar, alt: 'Edición de Imágenes', category: 'Edición' },
     { src: inteligencia, alt: 'Inteligencia Artificial', category: 'Tecnología' },
@@ -18,51 +13,13 @@ const Gallery = () => {
     { src: programacion, alt: 'Programación Básica', category: 'Programación' },
   ];
 
-  // Filtrar imágenes por búsqueda y categoría
+  // Función para filtrar las imágenes según la categoría
   const filterImages = () => {
-    let filteredImages = images;
-
-    if (activeCategory !== 'todos') {
-      filteredImages = filteredImages.filter((image) => image.category === activeCategory);
+    if (activeCategory === 'todos') {
+      return images;
     }
-
-    if (searchTerm) {
-      filteredImages = filteredImages.filter((image) =>
-        image.alt.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    }
-
-    return filteredImages;
+    return images.filter((image) => image.category === activeCategory);
   };
-
-  // Función para ordenar las imágenes
-  const sortImages = (images) => {
-    return images.sort((a, b) => {
-      if (sortOrder === 'asc') {
-        return a.category.localeCompare(b.category);
-      } else {
-        return b.category.localeCompare(a.category);
-      }
-    });
-  };
-
-  // Paginación
-  const nextPage = () => {
-    if (currentPage * imagesPerPage < filterImages().length) {
-      setCurrentPage(currentPage + 1);
-    }
-  };
-
-  const prevPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
-  };
-
-  const paginatedImages = sortImages(filterImages()).slice(
-    (currentPage - 1) * imagesPerPage,
-    currentPage * imagesPerPage
-  );
 
   return (
     <section
@@ -84,58 +41,12 @@ const Gallery = () => {
         Cursos Disponibles
       </h2>
 
-      {/* Barra de búsqueda */}
-      <div style={{ marginBottom: '20px' }}>
-        <input
-          type="text"
-          placeholder="Buscar curso..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          style={{
-            padding: '10px',
-            borderRadius: '5px',
-            border: '1px solid #ccc',
-            width: '200px',
-            fontSize: '1rem',
-            transition: 'border 0.3s ease',
-          }}
-        />
-      </div>
-
       {/* Filtro de categorías */}
       <div style={{ marginBottom: '30px' }}>
         <button
           onClick={() => setActiveCategory('todos')}
-          style={categoryButtonStyle}
-        >
-          Todos
-        </button>
-        <button
-          onClick={() => setActiveCategory('Edición')}
-          style={categoryButtonStyle}
-        >
-          Edición
-        </button>
-        <button
-          onClick={() => setActiveCategory('Tecnología')}
-          style={categoryButtonStyle}
-        >
-          Tecnología
-        </button>
-        <button
-          onClick={() => setActiveCategory('Programación')}
-          style={categoryButtonStyle}
-        >
-          Programación
-        </button>
-      </div>
-
-      {/* Ordenar por Categoría */}
-      <div style={{ marginBottom: '20px' }}>
-        <button
-          onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
           style={{
-            backgroundColor: '#FFC107',
+            backgroundColor: '#007BFF',
             color: '#fff',
             border: 'none',
             padding: '10px 20px',
@@ -143,14 +54,58 @@ const Gallery = () => {
             cursor: 'pointer',
             borderRadius: '5px',
             fontWeight: 'bold',
-            transition: 'background-color 0.3s ease',
           }}
         >
-          Ordenar por {sortOrder === 'asc' ? 'Ascendente' : 'Descendente'}
+          Todos
+        </button>
+        <button
+          onClick={() => setActiveCategory('Edición')}
+          style={{
+            backgroundColor: '#FF5722',
+            color: '#fff',
+            border: 'none',
+            padding: '10px 20px',
+            margin: '0 10px',
+            cursor: 'pointer',
+            borderRadius: '5px',
+            fontWeight: 'bold',
+          }}
+        >
+          Edición
+        </button>
+        <button
+          onClick={() => setActiveCategory('Tecnología')}
+          style={{
+            backgroundColor: '#4CAF50',
+            color: '#fff',
+            border: 'none',
+            padding: '10px 20px',
+            margin: '0 10px',
+            cursor: 'pointer',
+            borderRadius: '5px',
+            fontWeight: 'bold',
+          }}
+        >
+          Tecnología
+        </button>
+        <button
+          onClick={() => setActiveCategory('Programación')}
+          style={{
+            backgroundColor: '#9C27B0',
+            color: '#fff',
+            border: 'none',
+            padding: '10px 20px',
+            margin: '0 10px',
+            cursor: 'pointer',
+            borderRadius: '5px',
+            fontWeight: 'bold',
+          }}
+        >
+          Programación
         </button>
       </div>
 
-      {/* Galería de imágenes */}
+      {/* Galería de imágenes con animaciones suaves */}
       <div
         style={{
           display: 'flex',
@@ -159,7 +114,7 @@ const Gallery = () => {
           gap: '20px',
         }}
       >
-        {paginatedImages.map((image, idx) => (
+        {filterImages().map((image, idx) => (
           <div
             key={idx}
             style={{
@@ -179,7 +134,6 @@ const Gallery = () => {
               e.currentTarget.style.transform = 'scale(1)';
               e.currentTarget.style.boxShadow = '0px 4px 10px rgba(0, 0, 0, 0.1)';
             }}
-            onClick={() => alert(`Detalles de: ${image.alt}`)} // Muestra detalles emergentes
           >
             <img
               src={image.src}
@@ -205,7 +159,7 @@ const Gallery = () => {
         ))}
       </div>
 
-      {/* Indicadores de paginación mejorados */}
+      {/* Indicadores de paginación con transiciones suaves */}
       <div style={{ marginTop: '30px' }}>
         <span
           style={{
@@ -213,21 +167,10 @@ const Gallery = () => {
             color: '#007BFF',
             cursor: 'pointer',
             transition: 'color 0.3s ease',
-            marginRight: '20px',
           }}
-          onClick={prevPage}
+          onClick={() => alert('Página Anterior')}
         >
           ‹ Anterior
-        </span>
-        <span
-          style={{
-            fontSize: '1.2rem',
-            color: '#007BFF',
-            cursor: 'pointer',
-            transition: 'color 0.3s ease',
-          }}
-        >
-          Página {currentPage} de {Math.ceil(filterImages().length / imagesPerPage)}
         </span>
         <span
           style={{
@@ -237,25 +180,13 @@ const Gallery = () => {
             marginLeft: '20px',
             transition: 'color 0.3s ease',
           }}
-          onClick={nextPage}
+          onClick={() => alert('Siguiente Página')}
         >
           Siguiente ›
         </span>
       </div>
     </section>
   );
-};
-
-const categoryButtonStyle = {
-  backgroundColor: '#007BFF',
-  color: '#fff',
-  border: 'none',
-  padding: '10px 20px',
-  margin: '0 10px',
-  cursor: 'pointer',
-  borderRadius: '5px',
-  fontWeight: 'bold',
-  transition: 'background-color 0.3s ease',
 };
 
 export default Gallery;

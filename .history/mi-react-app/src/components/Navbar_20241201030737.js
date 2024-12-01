@@ -20,7 +20,7 @@ const Navbar = () => {
 
   return (
     <nav style={{ background: scrollingDown ? 'rgba(51, 51, 51, 0.7)' : 'rgba(51, 51, 51, 1)' }}>
-      {[].map((item, idx) => (
+      {['Sobre Nosotros', 'Recursos', 'Contáctanos'].map((item, idx) => (
         <a key={idx} href={`#${item.replace(' ', '').toLowerCase()}`} style={{ color: '#fff' }}>
           {item}
         </a>

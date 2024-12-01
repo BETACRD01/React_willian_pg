@@ -8,9 +8,7 @@ const Contact = () => {
     message: '',
   });
   const [formErrors, setFormErrors] = useState({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState('');
-
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -27,22 +25,13 @@ const Contact = () => {
     return errors;
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     const errors = validateForm();
     if (Object.keys(errors).length === 0) {
-      setIsSubmitting(true);
-      setSubmitStatus('Enviando...');
-      try {
-        // Simulación de llamada al servidor
-        await new Promise((resolve) => setTimeout(resolve, 2000)); // Simula un delay
-        setSubmitStatus('Mensaje enviado con éxito');
-        setFormData({ name: '', email: '', message: '' });
-      } catch (error) {
-        setSubmitStatus('Hubo un error al enviar el mensaje');
-      } finally {
-        setIsSubmitting(false);
-      }
+      alert('Mensaje enviado con éxito');
+      // Aquí puedes agregar la lógica para enviar los datos a tu servidor.
+      setFormData({ name: '', email: '', message: '' });
     } else {
       setFormErrors(errors);
     }
@@ -97,7 +86,6 @@ const Contact = () => {
               placeholder="Tu nombre"
               style={inputStyle}
               required
-              aria-label="Nombre"
             />
             {formErrors.name && <p style={errorStyle}>{formErrors.name}</p>}
           </div>
@@ -110,7 +98,6 @@ const Contact = () => {
               placeholder="Tu correo"
               style={inputStyle}
               required
-              aria-label="Correo electrónico"
             />
             {formErrors.email && <p style={errorStyle}>{formErrors.email}</p>}
           </div>
@@ -122,32 +109,16 @@ const Contact = () => {
               placeholder="Tu mensaje"
               style={textareaStyle}
               required
-              aria-label="Mensaje"
             ></textarea>
             {formErrors.message && <p style={errorStyle}>{formErrors.message}</p>}
           </div>
           <button
             type="submit"
             style={buttonStyle}
-            disabled={isSubmitting}
           >
-            {isSubmitting ? 'Enviando...' : 'Enviar mensaje'}
+            Enviar mensaje
           </button>
         </form>
-
-        {/* Mensaje de estado */}
-        {submitStatus && (
-          <p
-            style={{
-              marginTop: '20px',
-              fontSize: '1rem',
-              fontWeight: 'bold',
-              color: submitStatus === 'Mensaje enviado con éxito' ? '#28a745' : '#dc3545',
-            }}
-          >
-            {submitStatus}
-          </p>
-        )}
 
         {/* Información de contacto */}
         <div style={{ lineHeight: '1.8', marginTop: '30px' }}>
@@ -179,6 +150,7 @@ const Contact = () => {
             gap: '20px',
             fontSize: '2rem',
             marginTop: '20px',
+            transition: 'transform 0.3s ease-in-out',
           }}
         >
           <a
@@ -256,6 +228,9 @@ const buttonStyle = {
 const socialIconStyle = (color) => ({
   color: color,
   transition: 'color 0.3s ease',
+  '&:hover': {
+    color: '#007BFF',
+  },
 });
 
 const linkStyle = {
@@ -283,6 +258,7 @@ const floatingButtonStyle = {
   cursor: 'pointer',
   boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)',
   zIndex: 10,
+  animation: 'bounce 1s infinite',
 };
 
 export default Contact;

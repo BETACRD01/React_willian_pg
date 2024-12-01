@@ -7,9 +7,6 @@ const Contact = () => {
     email: '',
     message: '',
   });
-  const [formErrors, setFormErrors] = useState({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -19,42 +16,20 @@ const Contact = () => {
     });
   };
 
-  const validateForm = () => {
-    let errors = {};
-    if (!formData.name) errors.name = 'El nombre es obligatorio';
-    if (!formData.email) errors.email = 'El correo es obligatorio';
-    if (!formData.message) errors.message = 'El mensaje no puede estar vacío';
-    return errors;
-  };
-
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const errors = validateForm();
-    if (Object.keys(errors).length === 0) {
-      setIsSubmitting(true);
-      setSubmitStatus('Enviando...');
-      try {
-        // Simulación de llamada al servidor
-        await new Promise((resolve) => setTimeout(resolve, 2000)); // Simula un delay
-        setSubmitStatus('Mensaje enviado con éxito');
-        setFormData({ name: '', email: '', message: '' });
-      } catch (error) {
-        setSubmitStatus('Hubo un error al enviar el mensaje');
-      } finally {
-        setIsSubmitting(false);
-      }
-    } else {
-      setFormErrors(errors);
-    }
+    alert('Mensaje enviado con éxito');
+    // Aquí puedes agregar la lógica para enviar los datos a tu servidor.
+    setFormData({ name: '', email: '', message: '' }); // Limpiar formulario
   };
 
   return (
     <section
       id="contact"
       style={{
-        background: 'linear-gradient(135deg, #f0f4ff, #d9e8ff)',
-        color: '#333',
-        padding: '50px 20px',
+        background: 'linear-gradient(135deg, #f0f4ff, #d9e8ff)', // Gradiente suave
+        color: '#333', // Texto en tono oscuro
+        padding: '40px 20px',
         textAlign: 'center',
         display: 'flex',
         justifyContent: 'center',
@@ -74,7 +49,7 @@ const Contact = () => {
       >
         <h2
           style={{
-            fontSize: '2rem',
+            fontSize: '1.8rem',
             fontWeight: 'bold',
             marginBottom: '20px',
             color: '#333',
@@ -82,7 +57,7 @@ const Contact = () => {
         >
           Contáctanos
         </h2>
-        <p style={{ fontSize: '1.1rem', marginBottom: '15px' }}>
+        <p style={{ fontSize: '1rem', marginBottom: '15px' }}>
           ¿Tienes dudas o sugerencias? ¡Nos encantaría escucharte!
         </p>
 
@@ -95,11 +70,15 @@ const Contact = () => {
               value={formData.name}
               onChange={handleChange}
               placeholder="Tu nombre"
-              style={inputStyle}
+              style={{
+                width: '100%',
+                padding: '10px',
+                borderRadius: '5px',
+                border: '1px solid #ddd',
+                marginBottom: '10px',
+              }}
               required
-              aria-label="Nombre"
             />
-            {formErrors.name && <p style={errorStyle}>{formErrors.name}</p>}
           </div>
           <div style={{ marginBottom: '15px' }}>
             <input
@@ -108,11 +87,15 @@ const Contact = () => {
               value={formData.email}
               onChange={handleChange}
               placeholder="Tu correo"
-              style={inputStyle}
+              style={{
+                width: '100%',
+                padding: '10px',
+                borderRadius: '5px',
+                border: '1px solid #ddd',
+                marginBottom: '10px',
+              }}
               required
-              aria-label="Correo electrónico"
             />
-            {formErrors.email && <p style={errorStyle}>{formErrors.email}</p>}
           </div>
           <div style={{ marginBottom: '20px' }}>
             <textarea
@@ -120,34 +103,32 @@ const Contact = () => {
               value={formData.message}
               onChange={handleChange}
               placeholder="Tu mensaje"
-              style={textareaStyle}
+              style={{
+                width: '100%',
+                padding: '10px',
+                borderRadius: '5px',
+                border: '1px solid #ddd',
+                height: '150px',
+                resize: 'none',
+              }}
               required
-              aria-label="Mensaje"
             ></textarea>
-            {formErrors.message && <p style={errorStyle}>{formErrors.message}</p>}
           </div>
           <button
             type="submit"
-            style={buttonStyle}
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? 'Enviando...' : 'Enviar mensaje'}
-          </button>
-        </form>
-
-        {/* Mensaje de estado */}
-        {submitStatus && (
-          <p
             style={{
-              marginTop: '20px',
+              backgroundColor: '#007BFF',
+              color: '#fff',
+              padding: '12px 20px',
+              borderRadius: '5px',
               fontSize: '1rem',
-              fontWeight: 'bold',
-              color: submitStatus === 'Mensaje enviado con éxito' ? '#28a745' : '#dc3545',
+              border: 'none',
+              cursor: 'pointer',
             }}
           >
-            {submitStatus}
-          </p>
-        )}
+            Enviar mensaje
+          </button>
+        </form>
 
         {/* Información de contacto */}
         <div style={{ lineHeight: '1.8', marginTop: '30px' }}>
@@ -155,7 +136,11 @@ const Contact = () => {
             <strong>Email:</strong>{' '}
             <a
               href="mailto:williancerda0@gmail.com"
-              style={linkStyle}
+              style={{
+                color: '#007BFF',
+                textDecoration: 'none',
+                fontWeight: 'bold',
+              }}
             >
               williancerda0@gmail.com
             </a>
@@ -164,7 +149,11 @@ const Contact = () => {
             <strong>Teléfono:</strong>{' '}
             <a
               href="tel:+593986665374"
-              style={linkStyle}
+              style={{
+                color: '#007BFF',
+                textDecoration: 'none',
+                fontWeight: 'bold',
+              }}
             >
               +593 98 666 5374
             </a>
@@ -176,16 +165,20 @@ const Contact = () => {
           style={{
             display: 'flex',
             justifyContent: 'center',
-            gap: '20px',
-            fontSize: '2rem',
+            gap: '15px',
+            fontSize: '1.8rem',
             marginTop: '20px',
+            transition: 'transform 0.3s ease-in-out',
           }}
         >
           <a
             href="https://www.facebook.com/profile.php?id=100076599633499"
             target="_blank"
             rel="noopener noreferrer"
-            style={socialIconStyle('#4267B2')}
+            style={{
+              color: '#4267B2',
+              transition: 'color 0.3s',
+            }}
             aria-label="Facebook"
           >
             <FaFacebookF />
@@ -194,7 +187,10 @@ const Contact = () => {
             href="https://www.instagram.com/willian_crd_01/"
             target="_blank"
             rel="noopener noreferrer"
-            style={socialIconStyle('#C13584')}
+            style={{
+              color: '#C13584',
+              transition: 'color 0.3s',
+            }}
             aria-label="Instagram"
           >
             <FaInstagram />
@@ -203,7 +199,10 @@ const Contact = () => {
             href="https://www.linkedin.com/in/willian-cerda-62a259300/"
             target="_blank"
             rel="noopener noreferrer"
-            style={socialIconStyle('#0077B5')}
+            style={{
+              color: '#0077B5',
+              transition: 'color 0.3s',
+            }}
             aria-label="LinkedIn"
           >
             <FaLinkedinIn />
@@ -214,75 +213,26 @@ const Contact = () => {
       {/* Botón flotante para volver arriba */}
       <button
         onClick={() => window.scrollTo(0, 0)}
-        style={floatingButtonStyle}
+        style={{
+          position: 'fixed',
+          bottom: '20px',
+          right: '20px',
+          backgroundColor: '#007BFF',
+          color: '#fff',
+          borderRadius: '50%',
+          border: 'none',
+          padding: '15px',
+          fontSize: '1.5rem',
+          cursor: 'pointer',
+          boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)',
+          zIndex: 10,
+        }}
         aria-label="Volver arriba"
       >
         ↑
       </button>
     </section>
   );
-};
-
-const inputStyle = {
-  width: '100%',
-  padding: '10px',
-  borderRadius: '5px',
-  border: '1px solid #ddd',
-  marginBottom: '10px',
-  fontSize: '1rem',
-};
-
-const textareaStyle = {
-  width: '100%',
-  padding: '10px',
-  borderRadius: '5px',
-  border: '1px solid #ddd',
-  height: '150px',
-  resize: 'none',
-  fontSize: '1rem',
-};
-
-const buttonStyle = {
-  backgroundColor: '#007BFF',
-  color: '#fff',
-  padding: '12px 20px',
-  borderRadius: '5px',
-  fontSize: '1.1rem',
-  border: 'none',
-  cursor: 'pointer',
-  transition: 'background-color 0.3s ease',
-};
-
-const socialIconStyle = (color) => ({
-  color: color,
-  transition: 'color 0.3s ease',
-});
-
-const linkStyle = {
-  color: '#007BFF',
-  textDecoration: 'none',
-  fontWeight: 'bold',
-};
-
-const errorStyle = {
-  color: '#FF0000',
-  fontSize: '0.9rem',
-  marginTop: '5px',
-};
-
-const floatingButtonStyle = {
-  position: 'fixed',
-  bottom: '20px',
-  right: '20px',
-  backgroundColor: '#007BFF',
-  color: '#fff',
-  borderRadius: '50%',
-  border: 'none',
-  padding: '15px',
-  fontSize: '1.5rem',
-  cursor: 'pointer',
-  boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)',
-  zIndex: 10,
 };
 
 export default Contact;

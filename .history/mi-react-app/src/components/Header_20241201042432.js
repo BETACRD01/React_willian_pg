@@ -5,7 +5,6 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolling, setScrolling] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
-  const [searchQuery, setSearchQuery] = useState(''); // Definimos el estado de la búsqueda
   const menuRef = useRef(null);
   const buttonRef = useRef(null);
   const headerRef = useRef(null);
@@ -166,7 +165,7 @@ const Header = () => {
   }, []);
 
   const handleSearchChange = (event) => {
-    setSearchQuery(event.target.value); // Actualizar el estado de la búsqueda
+    setSearchQuery(event.target.value);
   };
 
   const handleSearchSubmit = () => {
@@ -204,8 +203,8 @@ const Header = () => {
           <input
             type="text"
             placeholder="Buscar..."
-            value={searchQuery} // Vincular con el estado
-            onChange={handleSearchChange} // Manejar cambio de búsqueda
+            value={searchQuery}
+            onChange={handleSearchChange}
             style={styles.searchInput}
           />
           <button onClick={handleSearchSubmit} style={styles.searchButton}>

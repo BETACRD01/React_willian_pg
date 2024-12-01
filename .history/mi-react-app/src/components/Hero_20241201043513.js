@@ -13,13 +13,6 @@ const Hero = () => (
       position: 'relative',
       marginBottom: '50px',
       overflow: 'hidden',
-      transition: 'background-position 0.5s ease', // Transición para el parallax
-    }}
-    onMouseMove={(e) => {
-      const { offsetX, offsetY } = e.nativeEvent;
-      const x = offsetX / window.innerWidth;
-      const y = offsetY / window.innerHeight;
-      e.currentTarget.style.backgroundPosition = `${x * 100}% ${y * 100}%`;
     }}
   >
     {/* Overlay oscuro con desenfoque */}
@@ -42,18 +35,10 @@ const Hero = () => (
         position: 'relative',
         zIndex: 1,
         animation: 'fadeIn 1.5s ease-in-out', // Animación de desvanecimiento al cargar
-        padding: '0 20px',
       }}
     >
-      <h2 style={{
-        fontSize: '3em',
-        fontWeight: 'bold',
-        animation: 'zoomIn 1s ease-out',
-        marginBottom: '20px',
-      }}>
-        ¡Aprende y Crece con Nosotros!
-      </h2>
-      <p style={{ fontSize: '1.5em', marginTop: '20px', animation: 'fadeIn 1.5s ease-in-out' }}>
+      <h2 style={{ fontSize: '3em', fontWeight: 'bold' }}>¡Aprende y Crece con Nosotros!</h2>
+      <p style={{ fontSize: '1.5em', marginTop: '20px' }}>
         Recursos educativos y consejos prácticos al alcance de todos.
       </p>
       <a
@@ -67,25 +52,22 @@ const Hero = () => (
           marginTop: '30px',
           display: 'inline-block',
           boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.2)',
-          transition: 'background 0.3s, transform 0.3s, box-shadow 0.3s', // Efecto de transición suave
+          transition: 'background 0.3s, transform 0.3s', // Efecto de transición suave
         }}
         onMouseEnter={(e) => {
           e.currentTarget.style.background = '#357ABD'; // Color más oscuro al pasar el cursor
           e.currentTarget.style.transform = 'scale(1.05)'; // Aumentar tamaño al pasar el cursor
-          e.currentTarget.style.boxShadow = '0px 8px 12px rgba(0, 0, 0, 0.3)'; // Sombra más intensa
         }}
         onMouseLeave={(e) => {
           e.currentTarget.style.background = '#4a90e2'; // Regresar al color original
           e.currentTarget.style.transform = 'scale(1)'; // Regresar al tamaño normal
-          e.currentTarget.style.boxShadow = '0px 4px 6px rgba(0, 0, 0, 0.2)'; // Regresar a la sombra original
         }}
-        aria-label="Visita nuestra página en Facebook"
       >
         Visita nuestra página en Facebook
       </a>
     </div>
 
-    {/* Animaciones de entrada */}
+    {/* Animación de desvanecimiento */}
     <style>
       {`
         @keyframes fadeIn {
@@ -98,20 +80,10 @@ const Hero = () => (
             transform: translateY(0);
           }
         }
-
-        @keyframes zoomIn {
-          from {
-            opacity: 0;
-            transform: scale(0.8);
-          }
-          to {
-            opacity: 1;
-            transform: scale(1);
-          }
-        }
       `}
     </style>
   </div>
 );
 
 export default Hero;
+

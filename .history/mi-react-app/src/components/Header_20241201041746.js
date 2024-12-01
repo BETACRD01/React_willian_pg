@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { FaArrowDown, FaArrowUp, FaSearch } from 'react-icons/fa'; // Agregar iconos de flecha
 import logo from './img/logo/logo2.jpeg';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolling, setScrolling] = useState(false);
-  const [lastScrollY, setLastScrollY] = useState(0);
-  const [searchQuery, setSearchQuery] = useState(''); // Definimos el estado de la búsqueda
+  const [lastScrollY, setLastScrollY] = useState(0); // Para detectar la dirección del scroll
+  const [searchQuery, setSearchQuery] = useState(''); // Definimos el estado para la búsqueda
   const menuRef = useRef(null);
   const buttonRef = useRef(null);
   const headerRef = useRef(null);
@@ -14,7 +15,7 @@ const Header = () => {
     header: {
       background: 'linear-gradient(to right, #0056b3, #003366)', 
       color: '#fff',
-      padding: '10px 20px',
+      padding: '10px 20px', 
       textAlign: 'center',
       boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
       borderBottom: '5px solid #004085',
@@ -30,7 +31,7 @@ const Header = () => {
       marginTop: 0,
       height: '80px',
       transition: 'all 0.3s ease-in-out',
-      transform: scrolling ? 'translateY(0)' : 'translateY(-100px)',
+      transform: scrolling ? 'translateY(0)' : 'translateY(-100px)', // Ocultar al hacer scroll hacia abajo
     },
     logoContainer: {
       display: 'flex',
@@ -97,6 +98,20 @@ const Header = () => {
     menuItemHover: {
       backgroundColor: '#004085',
     },
+    arrowButton: {
+      position: 'fixed',
+      bottom: '20px',
+      right: '20px',
+      backgroundColor: '#003366',
+      color: '#fff',
+      border: 'none',
+      fontSize: '2rem',
+      padding: '10px',
+      borderRadius: '50%',
+      cursor: 'pointer',
+      zIndex: 20,
+      display: isMenuOpen ? 'none' : 'block', // Muestra el botón solo si el menú está cerrado
+    },
     searchContainer: {
       display: 'flex',
       alignItems: 'center',
@@ -125,14 +140,17 @@ const Header = () => {
     },
   };
 
+  // Detecta si el usuario hace scroll hacia abajo o hacia arriba
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
 
       if (currentScrollY > lastScrollY) {
-        setScrolling(false); // Ocultar al hacer scroll hacia abajo
+        // Hacia abajo
+        setScrolling(false);
       } else {
-        setScrolling(true); // Mostrar al hacer scroll hacia arriba
+        // Hacia arriba
+        setScrolling(true);
       }
 
       setLastScrollY(currentScrollY);
@@ -170,7 +188,7 @@ const Header = () => {
   };
 
   const handleSearchSubmit = () => {
-    alert(`Buscando: ${searchQuery}`);
+    alert(`Buscando: ${searchQuery}`); // Mostrar la búsqueda
   };
 
   return (
@@ -204,16 +222,22 @@ const Header = () => {
           <input
             type="text"
             placeholder="Buscar..."
-            value={searchQuery} // Vincular con el estado
-            onChange={handleSearchChange} // Manejar cambio de búsqueda
+            value={searchQuery} // Asociar el valor del input con el estado
+            onChange={handleSearchChange} // Actualizar el estado cuando cambia el input
             style={styles.searchInput}
           />
           <button onClick={handleSearchSubmit} style={styles.searchButton}>
-            🔍
+            <FaSearch />
           </button>
         </div>
         <button style={styles.loginButton}>Iniciar sesión</button>
       </div>
+      <button 
+        style={styles.arrowButton} 
+        onClick={toggleMenu}
+      >
+        {isMenuOpen ? <FaArrowUp /> : <FaArrowDown />}
+      </button>
     </header>
   );
 };
