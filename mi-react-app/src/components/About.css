@@ -1,0 +1,36 @@
+/* Estilos para el componente About */
+.about-section {
+    padding: 50px 20px;
+    text-align: center;
+    background-color: var(--about-bg-color, #f9f9f9); /* Color de fondo dinámico */
+    color: var(--about-text-color, #333); /* Color de texto dinámico */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transiciones suaves */
+  }
+  
+  .about-title {
+    color: var(--about-title-color, #4a90e2); /* Color del título dinámico */
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .about-text {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin: 0 auto;
+    max-width: 800px;
+  }
+  
+  /* Tema claro */
+  :root {
+    --about-bg-color: #ffffff;
+    --about-text-color: #333333;
+    --about-title-color: #4a90e2;
+  }
+  
+  /* Tema oscuro */
+  [data-theme='dark'] {
+    --about-bg-color: #1a1a1a;
+    --about-text-color: #f0f0f0;
+    --about-title-color: #79c4ff;
+  }
+  

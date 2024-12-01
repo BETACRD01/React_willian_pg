@@ -1,0 +1,36 @@
+/* Estilos del componente con soporte para temas dinámicos */
+.dynamic-component {
+    padding: 20px;
+    text-align: center;
+    background-color: var(--component-bg-color, #f9f9f9); /* Color de fondo dinámico */
+    color: var(--component-text-color, #333); /* Color de texto dinámico */
+    border-radius: 8px; /* Bordes redondeados para un diseño moderno */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transiciones suaves */
+  }
+  
+  .dynamic-title {
+    color: var(--component-title-color, #007BFF); /* Color del título dinámico */
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .dynamic-text {
+    font-size: 1.2rem;
+    line-height: 1.6;
+  }
+  
+  /* Tema claro */
+  :root {
+    --component-bg-color: #ffffff;
+    --component-text-color: #333333;
+    --component-title-color: #007BFF;
+  }
+  
+  /* Tema oscuro */
+  [data-theme='dark'] {
+    --component-bg-color: #1a1a1a;
+    --component-text-color: #f0f0f0;
+    --component-title-color: #66b2ff;
+  }
+  

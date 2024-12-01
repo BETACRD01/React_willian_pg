@@ -1,0 +1,37 @@
+.footer {
+    background-color: var(--footer-bg-color, #333); /* Temas dinámicos */
+    color: var(--footer-text-color, #fff);
+    text-align: center;
+    padding: 20px 10px;
+    font-size: 0.9rem;
+    width: 100%;
+    position: relative;
+    bottom: 0;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Sombra para diseño moderno */
+  }
+  
+  .footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .footer-nav {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+  }
+  
+  .footer-link {
+    color: var(--footer-link-color, #fff);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .footer-link:hover {
+    color: var(--footer-link-hover-color, #00bcd4); /* Color de hover dinámico */
+  }
+  
